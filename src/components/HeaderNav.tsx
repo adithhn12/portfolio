@@ -1,40 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { ViewMode } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { GithubIcon } from './GithubIcon';
-import { LayoutGrid, Layers, Command, Clock, Cpu } from 'lucide-react';
+import { LayoutGrid, Layers, Cpu } from 'lucide-react';
 
 interface HeaderNavProps {
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
-  onOpenCommandPalette: () => void;
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({
   viewMode,
-  setViewMode,
-  onOpenCommandPalette
+  setViewMode
 }) => {
-  const [timeIST, setTimeIST] = useState<string>('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: 'Asia/Kolkata',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-      };
-      setTimeIST(now.toLocaleTimeString('en-US', options));
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <header className="sticky top-0 z-40 bg-[#0a0b0e]/95 backdrop-blur-md border-b border-[#f3e600]/30 shadow-[0_4px_20px_rgba(243,230,0,0.08)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
@@ -102,27 +80,8 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           </button>
         </div>
 
-        {/* Right Status & Command Trigger */}
+        {/* Right Status */}
         <div className="flex items-center gap-3">
-          {/* Live IST Telemetry Clock */}
-          <div className="hidden lg:flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-[#10121a] px-3 py-1.5 border border-slate-800">
-            <Clock className="w-3.5 h-3.5 text-[#f3e600]" />
-            <span>IST:</span>
-            <span className="text-[#f3e600] font-bold">{timeIST || '19:40:00'}</span>
-          </div>
-
-          {/* Command Palette Button */}
-          <button
-            onClick={onOpenCommandPalette}
-            className="px-3 py-1.5 bg-[#10121a] hover:bg-slate-900 border border-[#f3e600]/40 text-slate-200 text-xs font-mono transition-all flex items-center gap-2 group cursor-pointer"
-          >
-            <Command className="w-3.5 h-3.5 text-[#f3e600] group-hover:rotate-12 transition-transform" />
-            <span className="hidden sm:inline">Search</span>
-            <kbd className="bg-slate-950 border border-slate-700 px-1.5 py-0.5 rounded-none text-[10px] text-[#f3e600]">
-              ⌘K
-            </kbd>
-          </button>
-
           {/* GitHub Profile Link */}
           <a
             href={PERSONAL_INFO.githubUrl}

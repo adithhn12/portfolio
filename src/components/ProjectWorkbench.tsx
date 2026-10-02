@@ -20,11 +20,7 @@ import { OrderFlowSimulator } from './simulators/OrderFlowSimulator';
 import { SkyRunnerSimulator } from './simulators/SkyRunnerSimulator';
 import { RetroSneaksSimulator } from './simulators/RetroSneaksSimulator';
 
-interface ProjectWorkbenchProps {
-  onOpenCommandPalette: () => void;
-}
-
-export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = () => {
+export const ProjectWorkbench: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('ALL');
   const [selectedProjectId, setSelectedProjectId] = useState<string>(PROJECTS_DATA[0].id);
   const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'SIMULATOR' | 'CODE'>('OVERVIEW');

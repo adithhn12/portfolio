@@ -1,32 +1,105 @@
-# React + TypeScript + Vite
+# Adith HN — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+### Software & AI Systems Engineer
 
-Currently, two official plugins are available:
+Personal portfolio showcasing my projects, technical work, and experiments across software development, AI/ML, computer vision, and game development.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🌐 **Live Portfolio:** https://adithhn-portfolio.vercel.app
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## About Me
 
-## Expanding the Oxlint configuration
+I'm Adith HN, an MCA student at BMS College of Engineering with a background in Computer Applications. I enjoy building practical systems that combine software engineering, AI/ML, and interactive technologies.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+My work includes AI-powered applications, RAG systems, computer vision, satellite image analysis, web applications, and game development. I like taking an idea from a problem statement to a working prototype and experimenting with different technologies along the way.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+I'm currently exploring AI engineering, software development, computer vision, and game development while continuing to build projects that solve real-world problems.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## Featured Projects
+
+### 🤖 DocuChat
+Multi-document AI chatbot using a RAG pipeline to generate context-aware responses from uploaded documents.
+
+**Technologies:** Python, Hugging Face, Ollama, RAG
+
+### 🛰️ Satellite Land Classification
+AI-powered satellite image classification system using transfer learning and Grad-CAM for model explainability.
+
+**Technologies:** Python, TensorFlow, Keras, OpenCV, React, Flask
+
+### 🏭 OrderFlow
+AI-powered manufacturing assistant designed to help interpret manufacturing information and provide intelligent assistance.
+
+**Technologies:** Node.js, Gemini API, Supabase
+
+### 👟 RetroSneaks
+E-commerce sneaker store with an interactive frontend and backend integration.
+
+**Technologies:** HTML, CSS, JavaScript, Firebase
+
+### ⚡ PoleSense
+IoT prototype designed to detect abnormal voltage conditions on electricity poles and assist in locating power faults.
+
+**Technologies:** IoT, Sensors, Embedded Systems
+
+### 🎮 Game Development
+2D games and prototypes developed using Godot, including platformer and dark-fantasy action game concepts.
+
+**Technologies:** Godot, GDScript
+
+---
+
+## Technical Skills
+
+**Languages**
+- Python
+- Java
+- JavaScript
+- SQL
+
+**AI / Machine Learning**
+- TensorFlow / Keras
+- Computer Vision
+- Transfer Learning
+- RAG
+- Hugging Face
+- Grad-CAM
+
+**Web Development**
+- React
+- Node.js
+- Flask
+- HTML / CSS
+- Firebase
+- MySQL
+
+**Tools & Platforms**
+- Git / GitHub
+- Godot
+- Gemini API
+- Google Maps API
+
+---
+
+## Education
+
+**Master of Computer Applications (MCA)**  
+BMS College of Engineering, Bengaluru
+
+**Bachelor of Computer Applications (BCA)**  
+CGPA: 9.06
+
+---
+
+## Connect With Me
+
+- 🌐 Portfolio: https://adithhn-portfolio.vercel.app
+- 💻 GitHub: https://github.com/adithhn12
+- 💼 LinkedIn: [Add your LinkedIn URL]
+
+---
+
+⭐ Thanks for visiting!

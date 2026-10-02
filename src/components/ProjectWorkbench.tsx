@@ -218,7 +218,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = () => {
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5" /> Interactive Simulator
+                  <Sparkles className="w-3.5 h-3.5" /> {activeProject.id === 'skyrunner' ? '🎮 PLAY SKYRUNNER (WEBGL)' : 'Interactive Simulator'}
                 </button>
                 <button
                   onClick={() => setActiveTab('CODE')}

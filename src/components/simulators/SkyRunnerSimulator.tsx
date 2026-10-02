@@ -1,128 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Gamepad2, Play, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { Gamepad2, ExternalLink, Play, Trophy } from 'lucide-react';
 
 export const SkyRunnerSimulator: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [score, setScore] = useState<number>(0);
-
-  // Character state physics telemetry
-  const [posY, setPosY] = useState<number>(140);
-  const [velY, setVelY] = useState<number>(0);
-  const [isGrounded, setIsGrounded] = useState<boolean>(true);
-  const [doubleJumpAvailable, setDoubleJumpAvailable] = useState<boolean>(true);
-
-  const jump = () => {
-    if (isGrounded) {
-      setVelY(-9.5);
-      setIsGrounded(false);
-    } else if (doubleJumpAvailable) {
-      setVelY(-8.5);
-      setDoubleJumpAvailable(false);
-    }
-  };
-
-  useEffect(() => {
-    let animId: number;
-    let groundY = 140;
-    let gravity = 0.45;
-    let localY = posY;
-    let localVy = velY;
-    let localGrounded = isGrounded;
-    let localDoubleJump = doubleJumpAvailable;
-    let currentScore = score;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let obstacleX = 350;
-
-    const gameLoop = () => {
-      // Clear canvas
-      ctx.fillStyle = '#090d16';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Parallax background stars
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-      ctx.fillRect(80, 20, 2, 2);
-      ctx.fillRect(220, 40, 3, 3);
-      ctx.fillRect(310, 15, 2, 2);
-
-      // Draw Ground TileMap
-      ctx.fillStyle = '#1e293b';
-      ctx.fillRect(0, 160, canvas.width, 40);
-      ctx.fillStyle = '#10b981';
-      ctx.fillRect(0, 160, canvas.width, 4);
-
-      // Physics update
-      if (!localGrounded) {
-        localVy += gravity;
-        localY += localVy;
-        if (localY >= groundY) {
-          localY = groundY;
-          localVy = 0;
-          localGrounded = true;
-          localDoubleJump = true;
-        }
-      }
-
-      // Move obstacle
-      obstacleX -= 2.5;
-      if (obstacleX < -20) {
-        obstacleX = 360;
-        currentScore += 10;
-        setScore(currentScore);
-      }
-
-      // Draw Obstacle (Red Spikes)
-      ctx.fillStyle = '#f43f5e';
-      ctx.beginPath();
-      ctx.moveTo(obstacleX, 160);
-      ctx.lineTo(obstacleX + 10, 140);
-      ctx.lineTo(obstacleX + 20, 160);
-      ctx.fill();
-
-      // Draw Player Character Sprite (Godot Cyan Cube/Runner)
-      ctx.fillStyle = '#06b6d4';
-      ctx.fillRect(50, localY, 20, 20);
-      // Eye
-      ctx.fillStyle = '#090d16';
-      ctx.fillRect(62, localY + 4, 4, 4);
-
-      // Collision check
-      if (obstacleX > 40 && obstacleX < 70 && localY > 125) {
-        // Reset position on hit
-        obstacleX = 360;
-      }
-
-      // Update state for telemetry display
-      setPosY(Math.round(localY));
-      setVelY(parseFloat(localVy.toFixed(1)));
-      setIsGrounded(localGrounded);
-      setDoubleJumpAvailable(localDoubleJump);
-
-      animId = requestAnimationFrame(gameLoop);
-    };
-
-    animId = requestAnimationFrame(gameLoop);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
   return (
-    <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-5 space-y-5 font-sans">
+    <div className="bg-[#10121a] border border-[#f3e600]/40 p-5 space-y-4 font-sans">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-400">
+          <div className="p-2 bg-[#f3e600]/10 border border-[#f3e600]/30 text-[#f3e600]">
             <Gamepad2 className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-base font-semibold text-slate-100 font-heading">
-              SkyRunner Godot 2D Engine Arcade Playground
+            <h4 className="text-base font-black text-slate-100 font-heading uppercase tracking-wider flex items-center gap-2">
+              SkyRunner Godot WebGL Arcade <span className="text-xs text-[#00f0ff] font-mono font-bold bg-[#00f0ff]/10 px-2 py-0.5 border border-[#00f0ff]/30">LIVE GAME</span>
             </h4>
-            <p className="text-xs text-slate-400 font-mono">
-              GDScript Kinematic Physics • HTML5 WebGL Export
+            <p className="text-xs text-[#f3e600] font-mono">
+              Godot Engine 4.x • GDScript (player.gd, coin.gd, high_scores.gd) • WebGL Export
             </p>
           </div>
         </div>
@@ -131,65 +24,42 @@ export const SkyRunnerSimulator: React.FC = () => {
           href="https://adithhn12.github.io/SkyRunner/"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs rounded-lg transition-all flex items-center gap-1.5 shadow-md"
+          className="px-4 py-2 bg-[#f3e600] hover:bg-yellow-300 text-slate-950 font-black text-xs font-mono uppercase transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(243,230,0,0.3)] cyber-cut-sm"
         >
-          <ExternalLink className="w-3.5 h-3.5" /> Full WebGL Game (GitHub Pages)
+          <ExternalLink className="w-4 h-4" /> Open Fullscreen Tab
         </a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-        {/* Playable Canvas */}
-        <div className="md:col-span-8 space-y-3">
-          <div className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 flex flex-col items-center">
-            <canvas ref={canvasRef} width={360} height={200} className="w-full h-auto cursor-pointer" onClick={jump} />
-            <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded text-xs font-mono text-amber-400 border border-amber-500/30">
-              SCORE: {score} PTS
-            </div>
-            <div className="absolute top-3 right-3 text-[10px] font-mono text-slate-400 bg-slate-950/80 px-2 py-1 rounded border border-slate-800">
-              CLICK CANVAS / SPACE TO JUMP
-            </div>
-          </div>
-
-          <button
-            onClick={jump}
-            className="w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs rounded-lg transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <Play className="w-4 h-4 fill-slate-950" /> JUMP / DOUBLE JUMP (SPACEBAR)
-          </button>
+      {/* Playable Embedded Godot Game Frame */}
+      <div className="space-y-3">
+        <div className="relative w-full aspect-video max-h-[500px] bg-slate-950 border-2 border-[#f3e600]/50 shadow-[0_0_25px_rgba(243,230,0,0.15)] mx-auto overflow-hidden">
+          <iframe
+            src="https://adithhn12.github.io/SkyRunner/"
+            title="Play SkyRunner Godot WebGL Game"
+            className="w-full h-full border-0 block"
+            allow="autoplay; fullscreen; focus-without-user-activation"
+          />
         </div>
 
-        {/* Telemetry Debugger */}
-        <div className="md:col-span-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-3 font-mono text-xs">
-          <span className="text-slate-400 uppercase text-[10px] tracking-wider block font-bold">
-            Kinematic Body Physics Telemetry:
-          </span>
-
-          <div className="space-y-2">
-            <div className="flex justify-between bg-slate-950 p-2 rounded border border-slate-800">
-              <span className="text-slate-400">Position Y:</span>
-              <span className="text-cyan-400 font-bold">{posY}px</span>
-            </div>
-            <div className="flex justify-between bg-slate-950 p-2 rounded border border-slate-800">
-              <span className="text-slate-400">Velocity Y:</span>
-              <span className="text-amber-400 font-bold">{velY} px/f</span>
-            </div>
-            <div className="flex justify-between bg-slate-950 p-2 rounded border border-slate-800">
-              <span className="text-slate-400">is_on_floor():</span>
-              <span className={isGrounded ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
-                {isGrounded ? 'TRUE' : 'FALSE'}
-              </span>
-            </div>
-            <div className="flex justify-between bg-slate-950 p-2 rounded border border-slate-800">
-              <span className="text-slate-400">Double Jump:</span>
-              <span className={doubleJumpAvailable ? 'text-emerald-400 font-bold' : 'text-slate-500'}>
-                {doubleJumpAvailable ? 'AVAILABLE' : 'USED'}
-              </span>
-            </div>
+        {/* Game Info & Controls Footer Panel */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div className="bg-slate-950 p-3.5 border border-slate-800 space-y-1 text-xs font-mono">
+            <span className="text-[#f3e600] font-bold flex items-center gap-1.5 uppercase">
+              <Trophy className="w-3.5 h-3.5 text-[#f3e600]" /> GAME OBJECTIVE:
+            </span>
+            <p className="text-slate-300 font-sans text-xs leading-relaxed">
+              Collect 10 coins in the fastest time! Your completion time will be recorded and saved directly to the local High Score table (<code className="text-[#00f0ff]">high_scores.gd</code>).
+            </p>
           </div>
 
-          <p className="text-[11px] text-slate-400 font-sans pt-1 border-t border-slate-800 leading-relaxed">
-            Built using Godot Engine's KinematicBody2D physics API with delta time frame rate smoothing.
-          </p>
+          <div className="bg-slate-950 p-3.5 border border-slate-800 space-y-1 text-xs font-mono">
+            <span className="text-[#00f0ff] font-bold flex items-center gap-1.5 uppercase">
+              <Play className="w-3.5 h-3.5 text-[#00f0ff] fill-[#00f0ff]" /> CONTROLS & TIPS:
+            </span>
+            <p className="text-slate-300 font-sans text-xs leading-relaxed">
+              Click inside the game window to focus. Use <strong className="text-[#f3e600]">A / D</strong> or <strong className="text-[#f3e600]">Arrow Keys</strong> to move & run, and <strong className="text-[#f3e600]">W / Spacebar</strong> to jump!
+            </p>
+          </div>
         </div>
       </div>
     </div>

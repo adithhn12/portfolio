@@ -3,13 +3,13 @@ import type { Project } from '../types';
 export const PERSONAL_INFO = {
   name: "Adith H N",
   username: "adithhn12",
-  role: "Software & AI Systems Engineer",
+  role: "MCA Student · Software & AI",
   degree: "Master of Computer Applications (MCA)",
   semester: "Sem 3",
-  location: "Bengaluru, India",
+  location: "BMSCE, Bengaluru, India",
   githubUrl: "https://github.com/adithhn12",
   avatarUrl: "https://avatars.githubusercontent.com/u/278432269?v=4",
-  bio: "Engineering intelligent software systems across Satellite Remote Sensing, RAG Language Models, Smart Water & Manufacturing Operations, and 2D Game Engines. Focused on performant code, low-latency AI inference, and rich interactive experiences.",
+  bio: "MCA student at BMSCE, Bengaluru, exploring AI/ML, software development, computer vision, and creative projects through hands-on work.",
   stats: [
     { label: "Public Repositories", value: "6" },
     { label: "Live Cloud Deploys", value: "5" },

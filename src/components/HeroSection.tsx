@@ -12,27 +12,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWorkbench })
     <section className="relative pt-8 pb-10 border-b border-slate-800/80 bg-cyber-glow bg-cyber-grid overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Column: Core Engineering Manifesto */}
+          {/* Left Column: Authentic Student Intro */}
           <div className="lg:col-span-8 space-y-5">
-            {/* Top Telemetry Pill */}
+            {/* Small Role Label */}
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#10121a] border border-[#f3e600]/50 text-xs font-mono text-[#f3e600]">
               <span className="w-2 h-2 rounded-full bg-[#f3e600] animate-pulse" />
-              <span>SOFTWARE & AI SYSTEMS ENGINEER</span>
-              <span className="text-slate-600">•</span>
-              <span className="text-[#00f0ff] font-semibold">{PERSONAL_INFO.degree}</span>
+              <span>MCA STUDENT · SOFTWARE & AI</span>
             </div>
 
             {/* Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-100 font-heading leading-tight uppercase">
-              Engineering Intelligence Across <br />
+              EXPLORING AI, SOFTWARE <br />
               <span className="text-[#f3e600] underline decoration-[#00f0ff] decoration-4 underline-offset-8">
-                Satellites, AI Models & Systems.
+                & TECHNOLOGY THROUGH PROJECTS.
               </span>
             </h1>
 
-            {/* Bio */}
+            {/* Bio Paragraph */}
             <p className="text-base text-slate-300 leading-relaxed max-w-2xl font-sans">
-              I am <strong className="text-[#f3e600] font-bold">{PERSONAL_INFO.name}</strong> (@{PERSONAL_INFO.username}), a Master of Computer Applications student in Bengaluru building end-to-end multi-spectral satellite deep learning pipelines, RAG query platforms, real-time water & manufacturing operations platforms, and 2D Godot game engines.
+              MCA student at BMSCE, Bengaluru, exploring AI/ML, software development, computer vision, and creative projects through hands-on work.
             </p>
 
             {/* Action Buttons */}
@@ -84,13 +82,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWorkbench })
                 <span className="text-slate-400 flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-[#00f0ff]" /> Location:
                 </span>
-                <span className="text-slate-200 font-semibold">{PERSONAL_INFO.location}</span>
+                <span className="text-slate-200 font-semibold">BMSCE, Bengaluru</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate-400 flex items-center gap-1">
                   <Code className="w-3.5 h-3.5 text-[#f3e600]" /> Focus:
                 </span>
-                <span className="text-[#f3e600] font-bold">AI, Remote Sensing, Web</span>
+                <span className="text-[#f3e600] font-bold">AI/ML, Web, Computer Vision</span>
               </div>
             </div>
           </div>

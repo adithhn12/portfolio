@@ -12,6 +12,8 @@ export interface Project {
   techStack: string[];
   githubUrl: string;
   liveUrl?: string;
+  downloadUrl?: string;
+  imageUrl?: string;
   featured: boolean;
   metrics: {
     label: string;

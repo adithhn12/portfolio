@@ -58,6 +58,16 @@ export function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {PROJECTS_DATA.map((p) => (
                 <div key={p.id} className="bg-[#10121a] border border-slate-800 p-5 space-y-4 flex flex-col justify-between">
+                  {p.imageUrl && (
+                    <div className="relative aspect-video overflow-hidden border-b border-slate-800 -mx-5 -mt-5 mb-1 group">
+                      <img
+                        src={p.imageUrl}
+                        alt={p.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#10121a] via-transparent to-transparent opacity-60" />
+                    </div>
+                  )}
                   <div className="space-y-2">
                     <span className="text-[10px] font-mono text-[#00f0ff] bg-slate-950 px-2 py-0.5 border border-[#00f0ff]/30 font-bold">
                       {p.categoryName}

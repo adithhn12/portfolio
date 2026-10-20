@@ -11,20 +11,179 @@ export const PERSONAL_INFO = {
   avatarUrl: "https://avatars.githubusercontent.com/u/278432269?v=4",
   bio: "MCA student at BMSCE, Bengaluru, exploring AI/ML, software development, computer vision, and creative projects through hands-on work.",
   stats: [
-    { label: "Public Repositories", value: "6" },
-    { label: "Live Cloud Deploys", value: "5" },
-    { label: "Core Domains", value: "AI/CV • Systems • Web" },
+    { label: "Public Repositories", value: "7" },
+    { label: "Live Cloud Deploys", value: "6" },
+    { label: "Core Domains", value: "AI/CV • Systems • Games" },
     { label: "Degree Track", value: "MCA (Sem 3)" }
   ],
   skills: {
     ai_ml: ["ResNet50V2", "TensorFlow / Keras", "Test-Time Augmentation (TTA)", "Grad-CAM", "LangChain", "Groq Llama 3.2", "HuggingFace Embeddings", "FAISS Vector Search", "OpenCV", "Uncertainty Calibration"],
     web_systems: ["TypeScript", "React", "Next.js", "Vite", "Tailwind CSS", "Node.js", "Python", "Streamlit", "HTML5 / CSS3", "REST APIs"],
     backend_cloud: ["Firebase", "Supabase", "Git & GitHub", "Vercel", "GitHub Pages", "LocalStorage Session API"],
-    interactive_game: ["Godot Engine", "GDScript", "2D Physics Controller", "TileMaps", "WebGL Export", "Score Persistor"]
+    interactive_game: ["Godot Engine 4", "GDScript", "Top-Down Combat AI", "2D Physics Controller", "TileMaps & StateMachines", "WebGL Export", "Score Persistor"]
   }
 };
 
 export const PROJECTS_DATA: Project[] = [
+  {
+    id: "tales-of-everwood",
+    name: "Tales of Everwood",
+    tagline: "Top-Down Pixel-Art Fantasy RPG built with Godot Engine 4 & GDScript",
+    category: "GAMES_WEB",
+    categoryName: "Interactive Systems & Game Engine",
+    problem: "Designing an engaging top-down fantasy RPG requires responsive multi-directional player combat, intelligent enemy AI state machines, scalable XP progression, attack speed calculation, and persistent victory/game-over lifecycle handling.",
+    solution: "A top-down fantasy RPG where you explore a pixel-art world, fight enemies, gain experience, and level up. Features enemy AI, direction-based combat, XP progression, attack speed upgrades, victory and game-over systems.",
+    builtDetails: [
+      "Top-down player combat with directional sword attacks, hit detection, and player health system",
+      "Enemy AI with state-driven chasing, attacking behaviors, aggro detection, and custom collision boundaries",
+      "XP and level-up progression curve dynamically boosting player combat stats upon defeating enemies",
+      "Attack speed upgrades dynamically calculated through mathematical scaling formulas (Equations.calculate_attack_speed())",
+      "Victory and game-over systems with complete lifecycle management (main menu, pause, and replay functionality)",
+      "Cross-platform distribution featuring browser-playable WebGL build on itch.io and downloadable Windows 64-bit package"
+    ],
+    techStack: ["Godot Engine 4", "GDScript", "2D Combat Physics", "Enemy AI", "AnimationTree", "WebGL / itch.io", "Windows 64-bit"],
+    githubUrl: "https://github.com/adithhn12/Tales-of-Everwood",
+    liveUrl: "https://renrun12.itch.io/tales-of-everwood",
+    downloadUrl: "https://renrun12.itch.io/tales-of-everwood",
+    imageUrl: "/tales-of-everwood-cover.png",
+    featured: true,
+    metrics: [
+      { label: "Engine", value: "Godot Engine 4.x" },
+      { label: "Language", value: "GDScript (player.gd, Enemy AI)" },
+      { label: "Platform", value: "itch.io (WebGL & Windows)" }
+    ],
+    architecture: {
+      inputs: ["8-Direction Movement (WASD/Arrows)", "Melee Attack Input (Spacebar/Click)", "Enemy Aggro Detection Range"],
+      coreEngine: "CharacterBody2D Movement Loop -> AnimationTree StateMachine -> XP Progression & Attack Speed Scaling -> Enemy AI Chaser",
+      outputs: ["60FPS Pixel-Art Viewport", "Dynamic Health & XP Status", "Victory & Game-Over Lifecycle"]
+    },
+    highlights: [
+      "Top-down player combat with responsive direction-based sword attacks and health system",
+      "Enemy AI with real-time chasing, attack states, and player tracking",
+      "XP and level-up progression with dynamic attack speed upgrades",
+      "Victory and game-over systems with main menu, pause, and replay functionality",
+      "Playable online in browser and available for Windows download on itch.io"
+    ],
+    codeSnippet: {
+      language: "gdscript",
+      title: "player.gd",
+      code: `extends CharacterBody2D
+
+signal game_over(victorious: bool)
+signal update_hp_bar(hp_bar_value: bool)
+
+enum State {
+	IDLE,
+	RUN,
+	ATTACK,
+	DEAD
+}
+
+@export_category("Stats")
+@export var speed: int = 200
+@export var attack_damage: int = 100
+@export var hitpoints: int = 150
+
+var state: State = State.IDLE
+var move_direction: Vector2 = Vector2.ZERO
+var facing_direction: Vector2 = Vector2.RIGHT
+var attack_speed: float
+var hitpoints_max: int
+
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
+
+func _ready() -> void:
+	hitpoints_max = hitpoints
+	animation_tree.set_active(true)
+	calculate_stats()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack"):
+		attack()
+
+func _physics_process(_delta: float) -> void:
+	if state != State.ATTACK:
+		movement_loop()
+
+func calculate_stats() -> void:
+	attack_speed = Equations.calculate_attack_speed()
+	var time_factor: float = Equations.BASE_ATTACK_SPEED / attack_speed
+	animation_tree.set("parameters/Attack/TimeScale/scale", time_factor)
+
+func movement_loop() -> void:
+	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	move_direction.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
+	velocity = move_direction.normalized() * speed
+	move_and_slide()`
+    }
+  },
+  {
+    id: "skyrunner",
+    name: "SkyRunner",
+    tagline: "2D Platformer Engine & Exploration Game built with Godot & GDScript",
+    category: "GAMES_WEB",
+    categoryName: "Interactive Systems & Game Engine",
+    problem: "Building a responsive 2D platformer requires custom GDScript player physics, collectible collision handling, level progression, high-score tracking, and browser WebGL optimization.",
+    solution: "Developed SkyRunner in Godot Engine using GDScript. Features 2D exploration-based levels, collectible coin tracking (`coin.gd`), local high-score saving (`high_scores.gd`), animated player state machines (`player.gd`), and an HTML5 WebGL export hosted on GitHub Pages.",
+    builtDetails: [
+      "Custom player character controller in GDScript (`player.gd`) with responsive jump & movement physics",
+      "Collectible coin logic (`coin.gd`) updating real-time score counters during exploration",
+      "Local high-score tracking & disk persistor (`high_scores.gd`) for score saving",
+      "Optimized WebGL HTML5 export deployed on GitHub Pages for instant browser playability"
+    ],
+    techStack: ["Godot Engine", "GDScript", "2D Physics", "WebGL HTML5", "GitHub Pages"],
+    githubUrl: "https://github.com/adithhn12/SkyRunner",
+    liveUrl: "https://adithhn12.github.io/SkyRunner/",
+    featured: true,
+    metrics: [
+      { label: "Engine", value: "Godot Engine" },
+      { label: "Language", value: "GDScript (player.gd, coin.gd)" },
+      { label: "Export Target", value: "Browser WebGL (GitHub Pages)" }
+    ],
+    architecture: {
+      inputs: ["Keyboard Controls", "TileMap Collisions"],
+      coreEngine: "Godot 2D Physics Loop -> GDScript Character & Collectible Logic -> High Score Saver",
+      outputs: ["Rendered WebGL Canvas (60FPS)", "Collectible State", "Local High Scores"]
+    },
+    highlights: [
+      "Playable directly in any modern web browser via WebGL export",
+      "Local high-score tracking and persistent save system",
+      "Hosted live on GitHub Pages"
+    ],
+    codeSnippet: {
+      language: "gdscript",
+      title: "player.gd",
+      code: `extends CharacterBody2D
+
+const SPEED = 220.0
+const JUMP_VELOCITY = -400.0
+const GRAVITY = 980.0
+
+var double_jump_available = true
+
+func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y += GRAVITY * delta
+	else:
+		double_jump_available = true
+
+	if Input.is_action_just_pressed("ui_accept"):
+		if is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		elif double_jump_available:
+			velocity.y = JUMP_VELOCITY * 0.85
+			double_jump_available = false
+
+	var direction = Input.get_axis("ui_left", "ui_right")
+	if direction:
+		velocity.x = move_toward(velocity.x, direction * SPEED, 25.0)
+	else:
+		velocity.x = move_toward(velocity.x, 0, 30.0)
+
+	move_and_slide()`
+    }
+  },
   {
     id: "satellite-classification",
     name: "Satellite Land Cover Classification",
@@ -202,72 +361,6 @@ def create_docuchat_pipeline(raw_text):
       "Instant extraction of material specs, quantities, and delivery deadlines",
       "Live deployment on Lovable platform"
     ]
-  },
-  {
-    id: "skyrunner",
-    name: "SkyRunner",
-    tagline: "2D Platformer Engine & Exploration Game built with Godot & GDScript",
-    category: "GAMES_WEB",
-    categoryName: "Interactive Systems & Game Engine",
-    problem: "Building a responsive 2D platformer requires custom GDScript player physics, collectible collision handling, level progression, high-score tracking, and browser WebGL optimization.",
-    solution: "Developed SkyRunner in Godot Engine using GDScript. Features 2D exploration-based levels, collectible coin tracking (`coin.gd`), local high-score saving (`high_scores.gd`), animated player state machines (`player.gd`), and an HTML5 WebGL export hosted on GitHub Pages.",
-    builtDetails: [
-      "Custom player character controller in GDScript (`player.gd`) with responsive jump & movement physics",
-      "Collectible coin logic (`coin.gd`) updating real-time score counters during exploration",
-      "Local high-score tracking & disk persistor (`high_scores.gd`) for score saving",
-      "Optimized WebGL HTML5 export deployed on GitHub Pages for instant browser playability"
-    ],
-    techStack: ["Godot Engine", "GDScript", "2D Physics", "WebGL HTML5", "GitHub Pages"],
-    githubUrl: "https://github.com/adithhn12/SkyRunner",
-    liveUrl: "https://adithhn12.github.io/SkyRunner/",
-    featured: true,
-    metrics: [
-      { label: "Engine", value: "Godot Engine" },
-      { label: "Language", value: "GDScript (player.gd, coin.gd)" },
-      { label: "Export Target", value: "Browser WebGL (GitHub Pages)" }
-    ],
-    architecture: {
-      inputs: ["Keyboard Controls", "TileMap Collisions"],
-      coreEngine: "Godot 2D Physics Loop -> GDScript Character & Collectible Logic -> High Score Saver",
-      outputs: ["Rendered WebGL Canvas (60FPS)", "Collectible State", "Local High Scores"]
-    },
-    highlights: [
-      "Playable directly in any modern web browser via WebGL export",
-      "Local high-score tracking and persistent save system",
-      "Hosted live on GitHub Pages"
-    ],
-    codeSnippet: {
-      language: "gdscript",
-      title: "player.gd",
-      code: `extends CharacterBody2D
-
-const SPEED = 220.0
-const JUMP_VELOCITY = -400.0
-const GRAVITY = 980.0
-
-var double_jump_available = true
-
-func _physics_process(delta):
-	if not is_on_floor():
-		velocity.y += GRAVITY * delta
-	else:
-		double_jump_available = true
-
-	if Input.is_action_just_pressed("ui_accept"):
-		if is_on_floor():
-			velocity.y = JUMP_VELOCITY
-		elif double_jump_available:
-			velocity.y = JUMP_VELOCITY * 0.85
-			double_jump_available = false
-
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED, 25.0)
-	else:
-		velocity.x = move_toward(velocity.x, 0, 30.0)
-
-	move_and_slide()`
-    }
   },
   {
     id: "retrosneaks",

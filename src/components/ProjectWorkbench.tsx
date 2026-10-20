@@ -17,6 +17,7 @@ import { SatelliteSimulator } from './simulators/SatelliteSimulator';
 import { DocuChatSimulator } from './simulators/DocuChatSimulator';
 import { AquaSphereSimulator } from './simulators/AquaSphereSimulator';
 import { OrderFlowSimulator } from './simulators/OrderFlowSimulator';
+import { TalesOfEverwoodSimulator } from './simulators/TalesOfEverwoodSimulator';
 import { SkyRunnerSimulator } from './simulators/SkyRunnerSimulator';
 import { RetroSneaksSimulator } from './simulators/RetroSneaksSimulator';
 
@@ -36,6 +37,8 @@ export const ProjectWorkbench: React.FC = () => {
   // Helper to render matching simulator
   const renderSimulatorComponent = () => {
     switch (activeProject.id) {
+      case 'tales-of-everwood':
+        return <TalesOfEverwoodSimulator />;
       case 'satellite-classification':
         return <SatelliteSimulator />;
       case 'docuchat':
@@ -49,7 +52,7 @@ export const ProjectWorkbench: React.FC = () => {
       case 'retrosneaks':
         return <RetroSneaksSimulator />;
       default:
-        return <SatelliteSimulator />;
+        return <TalesOfEverwoodSimulator />;
     }
   };
 
@@ -63,7 +66,7 @@ export const ProjectWorkbench: React.FC = () => {
               <FolderGit2 className="w-4 h-4" />
               <span>SIGNATURE WORKSPACE</span>
               <span>•</span>
-              <span className="text-slate-400">6 AUTHENTIC PROJECTS</span>
+              <span className="text-slate-400">{PROJECTS_DATA.length} AUTHENTIC PROJECTS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black font-heading text-slate-100 uppercase tracking-wide">
               Interactive Systems Workbench
@@ -73,10 +76,10 @@ export const ProjectWorkbench: React.FC = () => {
           {/* Category Filter Chips */}
           <div className="flex flex-wrap items-center gap-2">
             {[
-              { id: 'ALL', label: 'All Projects (6)' },
-              { id: 'AI_CV', label: 'AI & Remote Sensing (2)' },
-              { id: 'SMART_SYSTEMS', label: 'Smart Infrastructure & Operations (2)' },
-              { id: 'GAMES_WEB', label: 'Games & Web (2)' }
+              { id: 'ALL', label: `All Projects (${PROJECTS_DATA.length})` },
+              { id: 'AI_CV', label: `AI & Remote Sensing (${PROJECTS_DATA.filter((p) => p.category === 'AI_CV').length})` },
+              { id: 'SMART_SYSTEMS', label: `Smart Infrastructure & Operations (${PROJECTS_DATA.filter((p) => p.category === 'SMART_SYSTEMS').length})` },
+              { id: 'GAMES_WEB', label: `Games & Web (${PROJECTS_DATA.filter((p) => p.category === 'GAMES_WEB').length})` }
             ].map((cat) => (
               <button
                 key={cat.id}
@@ -214,7 +217,13 @@ export const ProjectWorkbench: React.FC = () => {
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5" /> {activeProject.id === 'skyrunner' ? '🎮 PLAY SKYRUNNER (WEBGL)' : 'Interactive Simulator'}
+                  <Sparkles className="w-3.5 h-3.5" /> {
+                    activeProject.id === 'tales-of-everwood'
+                      ? '🎮 PLAY EVERWOOD (ITCH.IO)'
+                      : activeProject.id === 'skyrunner'
+                      ? '🎮 PLAY SKYRUNNER (WEBGL)'
+                      : 'Interactive Simulator'
+                  }
                 </button>
                 <button
                   onClick={() => setActiveTab('CODE')}
@@ -231,6 +240,26 @@ export const ProjectWorkbench: React.FC = () => {
               {/* TAB 1: OVERVIEW */}
               {activeTab === 'OVERVIEW' && (
                 <div className="space-y-6">
+                  {/* Cover Art Banner if available */}
+                  {activeProject.imageUrl && (
+                    <div className="relative w-full h-48 sm:h-64 bg-slate-950 border border-slate-800 overflow-hidden group">
+                      <img
+                        src={activeProject.imageUrl}
+                        alt={activeProject.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#10121a] via-transparent to-transparent opacity-85" />
+                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono">
+                        <span className="text-[#f3e600] font-bold bg-slate-950/90 px-2.5 py-1 border border-[#f3e600]/40 backdrop-blur-sm">
+                          PIXEL-ART TOP-DOWN RPG • GODOT 4
+                        </span>
+                        <span className="text-slate-300 bg-slate-950/90 px-2 py-1 border border-slate-800 backdrop-blur-sm">
+                          PLAY ONLINE / WINDOWS
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Problem & Solution */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-slate-950 p-4 border border-slate-800 space-y-2 border-t-2 border-t-rose-500">

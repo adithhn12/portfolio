@@ -8,6 +8,7 @@ export const PERSONAL_INFO = {
   semester: "Sem 3",
   location: "BMSCE, Bengaluru, India",
   githubUrl: "https://github.com/adithhn12",
+  email: "adithhn12@gmail.com",
   avatarUrl: "https://avatars.githubusercontent.com/u/278432269?v=4",
   bio: "MCA student at BMSCE, Bengaluru, exploring AI/ML, software development, computer vision, and creative projects through hands-on work.",
   stats: [

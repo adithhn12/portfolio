@@ -16,43 +16,43 @@ export const GitHubActivity: React.FC = () => {
   };
 
   return (
-    <section id="github" className="py-12 bg-[#0a0b0e] border-t border-slate-800/80 font-sans">
+    <section id="github" className="py-16 sm:py-20 bg-[#0a0b0e] border-b border-slate-800/80 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-800 pb-5">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#f3e600] mb-1 font-bold">
-              <GithubIcon className="w-4 h-4 text-[#f3e600]" />
-              <span>GITHUB TELEMETRY & REPOSITORY SPECTRUM</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black font-heading text-slate-100 uppercase tracking-wide">
-              Verified Code Repositories (@{PERSONAL_INFO.username})
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-slate-100 tracking-tight">
+              Code Repositories
             </h2>
+            <p className="text-sm text-slate-400 mt-1 font-sans">
+              Verified repositories on GitHub (@{PERSONAL_INFO.username}) with direct clone commands.
+            </p>
           </div>
 
           <a
             href={PERSONAL_INFO.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-[#10121a] hover:bg-slate-900 border border-[#f3e600]/40 text-slate-200 font-mono text-xs font-bold uppercase transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 text-xs font-medium rounded-lg transition-colors flex items-center gap-2 self-start sm:self-auto"
           >
-            <GithubIcon className="w-4 h-4 text-[#f3e600]" /> View GitHub Profile
+            <GithubIcon className="w-4 h-4 text-slate-300" />
+            <span>GitHub Profile</span>
           </a>
         </div>
 
         {/* Repos Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {PROJECTS_DATA.map((repo) => (
             <div
               key={repo.id}
-              className="bg-[#10121a] border border-slate-800 hover:border-[#f3e600]/60 p-5 space-y-4 flex flex-col justify-between transition-all hover:shadow-[0_0_20px_rgba(243,230,0,0.15)] group"
+              className="bg-[#10121a] border border-slate-800 hover:border-slate-700 rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all hover:shadow-xl group"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-heading font-black text-base text-slate-100 group-hover:text-[#f3e600] transition-colors uppercase">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="font-heading font-bold text-base text-slate-100 group-hover:text-[#f3e600] transition-colors">
                     {repo.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#00f0ff] bg-slate-950 px-2 py-0.5 border border-[#00f0ff]/30 font-bold">
+                  <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800/30 font-medium">
                     {repo.categoryName.split(' ')[0]}
                   </span>
                 </div>
@@ -62,10 +62,10 @@ export const GitHubActivity: React.FC = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {repo.techStack.map((tech, idx) => (
+                  {repo.techStack.slice(0, 4).map((tech, idx) => (
                     <span
                       key={idx}
-                      className="text-[10px] font-mono px-2 py-0.5 bg-slate-950 text-slate-400 border border-slate-800"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800"
                     >
                       {tech}
                     </span>
@@ -75,18 +75,18 @@ export const GitHubActivity: React.FC = () => {
 
               {/* Actions & Git Clone */}
               <div className="pt-3 border-t border-slate-800/80 space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-mono">
+                <div className="flex items-center justify-between text-xs">
                   <button
                     onClick={() => handleCopyClone(repo.githubUrl)}
-                    className="text-[11px] text-slate-400 hover:text-[#f3e600] flex items-center gap-1 bg-slate-950 px-2.5 py-1 border border-slate-800 transition-all cursor-pointer font-bold"
+                    className="text-[11px] font-mono text-slate-400 hover:text-[#f3e600] flex items-center gap-1.5 bg-slate-950 px-2.5 py-1 rounded-md border border-slate-800 transition-colors cursor-pointer"
                   >
                     {copiedRepo === repo.githubUrl ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-[#f3e600]" /> Copied Git Clone!
+                        <Check className="w-3.5 h-3.5 text-[#f3e600]" /> Copied!
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3.5 h-3.5" /> Copy `git clone`
+                        <Copy className="w-3.5 h-3.5" /> git clone
                       </>
                     )}
                   </button>
@@ -95,7 +95,7 @@ export const GitHubActivity: React.FC = () => {
                     href={repo.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#f3e600] hover:underline flex items-center gap-1 text-[11px] font-bold"
+                    className="text-slate-300 hover:text-[#f3e600] flex items-center gap-1 text-[11px] font-medium transition-colors"
                   >
                     Repository <ExternalLink className="w-3 h-3" />
                   </a>

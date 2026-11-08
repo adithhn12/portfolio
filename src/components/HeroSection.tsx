@@ -16,7 +16,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWorkbench })
     { name: 'Godot Engine 4 (GDScript)', color: '#c084fc' },
     { name: 'React & TypeScript', color: '#38bdf8' },
     { name: 'FAISS Vector Search', color: '#34d399' },
-    { name: 'Supabase & REST APIs', color: '#fb7185' }
+    { name: 'Supabase & REST APIs', color: '#fb7185' },
+    { name: 'YOLOv8 & Coffee Vision', color: '#4ade80' },
+    { name: 'Random Forest & Fuzzy Logic', color: '#f97316' }
   ];
 
   return (
@@ -89,7 +91,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWorkbench })
                     <span>TECHNICAL OVERVIEW</span>
                   </span>
                   <span className="text-[11px] font-mono text-cyan-400 font-medium bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800/30">
-                    VERIFIED PROJECTS
+                    9 PROJECTS · 1 IN PROGRESS
                   </span>
                 </div>
 
@@ -124,7 +126,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToWorkbench })
                       <span className="text-slate-400 flex items-center gap-1.5">
                         <Code className="w-3.5 h-3.5 text-[#f3e600]" /> Focus:
                       </span>
-                      <span className="text-[#f3e600] font-bold">AI/ML, Web, Computer Vision</span>
+                      <span className="text-[#f3e600] font-bold">AI/ML, Web, Vision & AgriTech</span>
                     </div>
                   </div>
 

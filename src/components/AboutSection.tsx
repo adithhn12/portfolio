@@ -109,7 +109,7 @@ export const AboutSection: React.FC = () => {
             <div className="bg-[#10121a] border border-slate-800 hover:border-slate-700 rounded-xl p-5 space-y-4 transition-colors">
               <div className="flex items-center gap-2.5 text-[#f3e600] font-heading font-bold text-sm border-b border-slate-800/80 pb-3">
                 <Brain className="w-4 h-4" />
-                <span>AI & Remote Sensing</span>
+                <span>AI, Computer Vision & Remote Sensing</span>
               </div>
               <ul className="space-y-2">
                 {PERSONAL_INFO.skills.ai_ml.map((s, idx) => (

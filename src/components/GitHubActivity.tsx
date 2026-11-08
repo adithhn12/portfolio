@@ -25,7 +25,7 @@ export const GitHubActivity: React.FC = () => {
               Code Repositories
             </h2>
             <p className="text-sm text-slate-400 mt-1 font-sans">
-              Verified repositories on GitHub (@{PERSONAL_INFO.username}) with direct clone commands.
+              Project repositories on GitHub (@{PERSONAL_INFO.username}), including current in-progress work.
             </p>
           </div>
 
@@ -56,6 +56,8 @@ export const GitHubActivity: React.FC = () => {
                     {repo.categoryName.split(' ')[0]}
                   </span>
                 </div>
+
+                {repo.repositoryVisibility === 'private' && <span className="inline-block rounded border border-amber-800/40 bg-amber-950/30 px-2 py-0.5 text-[10px] font-mono text-amber-200">Private repository · in progress</span>}
 
                 <p className="text-xs text-slate-300 font-sans line-clamp-3 leading-relaxed">
                   {repo.tagline}

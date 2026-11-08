@@ -26,7 +26,7 @@ export const ArchitectureMatrix: React.FC = () => {
           <div className="bg-[#10121a] border border-[#f3e600]/30 p-5 space-y-4 border-t-4 border-t-[#f3e600]">
             <div className="flex items-center gap-2.5 text-[#f3e600] font-heading font-black text-sm border-b border-slate-800 pb-3 uppercase">
               <Brain className="w-4 h-4" />
-              <span>AI & Remote Sensing</span>
+              <span>AI, Computer Vision & Remote Sensing</span>
             </div>
             <ul className="space-y-2">
               {PERSONAL_INFO.skills.ai_ml.map((s, idx) => (

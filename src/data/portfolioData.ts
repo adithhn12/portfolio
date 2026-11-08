@@ -12,15 +12,15 @@ export const PERSONAL_INFO = {
   avatarUrl: "https://avatars.githubusercontent.com/u/278432269?v=4",
   bio: "MCA student at BMSCE, Bengaluru, exploring AI/ML, software development, computer vision, and creative projects through hands-on work.",
   stats: [
-    { label: "Public Repositories", value: "7" },
+    { label: "Public Repositories", value: "8" },
     { label: "Live Cloud Deploys", value: "6" },
-    { label: "Core Domains", value: "AI/CV • Systems • Games" },
+    { label: "Core Domains", value: "AI/CV • Systems • Games • AgriTech" },
     { label: "Degree Track", value: "MCA (Sem 3)" }
   ],
   skills: {
-    ai_ml: ["ResNet50V2", "TensorFlow / Keras", "Test-Time Augmentation (TTA)", "Grad-CAM", "LangChain", "Groq Llama 3.2", "HuggingFace Embeddings", "FAISS Vector Search", "OpenCV", "Uncertainty Calibration"],
-    web_systems: ["TypeScript", "React", "Next.js", "Vite", "Tailwind CSS", "Node.js", "Python", "Streamlit", "HTML5 / CSS3", "REST APIs"],
-    backend_cloud: ["Firebase", "Supabase", "Git & GitHub", "Vercel", "GitHub Pages", "LocalStorage Session API"],
+    ai_ml: ["YOLOv8", "Random Forest", "Mamdani Fuzzy Logic", "OpenCV", "ResNet50V2", "TensorFlow / Keras", "Test-Time Augmentation (TTA)", "Grad-CAM", "LangChain", "Groq Llama 3.2", "HuggingFace Embeddings", "FAISS Vector Search", "Uncertainty Calibration"],
+    web_systems: ["TypeScript", "React", "Next.js", "Vite", "Tailwind CSS", "Node.js", "Python", "FastAPI", "Streamlit", "HTML5 / CSS3", "REST APIs"],
+    backend_cloud: ["SQLite", "Firebase", "Supabase", "Git & GitHub", "Vercel", "GitHub Pages", "LocalStorage Session API"],
     interactive_game: ["Godot Engine 4", "GDScript", "Top-Down Combat AI", "2D Physics Controller", "TileMaps & StateMachines", "WebGL Export", "Score Persistor"]
   }
 };
@@ -395,6 +395,90 @@ def create_docuchat_pipeline(raw_text):
       "Zero framework overhead with pure vanilla JavaScript",
       "LocalStorage session management for authentication and cart state",
       "Integrated UPI/QR code payment checkout screen"
+    ]
+  },
+  {
+    id: "smartsnap-hybrid",
+    name: "SmartSnap-Hybrid",
+    tagline: "Hybrid image quality assessment with computer vision, Random Forest regression, and fuzzy logic",
+    category: "AI_CV",
+    categoryName: "Computer Vision & AI",
+    problem: "Assessing whether a photograph should be kept, recovered, or retaken requires combining perceptual quality estimates with interpretable evidence of image defects.",
+    solution: "Combines OpenCV image analysis with a locally trained Random Forest model that estimates perceptual quality, then applies Mamdani fuzzy logic to produce a 0–100 score and KEEP, RECOVER, or RETAKE recommendation.",
+    builtDetails: [
+      "OpenCV analysis for blur, exposure, contrast, noise, composition, and category-aware face evidence",
+      "Random Forest regression trained on KonIQ-10k to estimate mean opinion score (MOS)",
+      "Mamdani fuzzy inference combines the MOS estimate with direct defect signals",
+      "React interface with image upload, analysis results, and a simulation playground"
+    ],
+    techStack: ["Python", "FastAPI", "OpenCV", "scikit-learn", "scikit-fuzzy", "React", "Vite", "Recharts"],
+    githubUrl: "https://github.com/adithhn12/SmartSnap-Hybrid",
+    featured: true,
+    metrics: [
+      { label: "Model", value: "Random Forest · KonIQ-10k MOS" },
+      { label: "Decision Engine", value: "Mamdani Fuzzy Logic" },
+      { label: "Recommendations", value: "KEEP · RECOVER · RETAKE" }
+    ],
+    architecture: {
+      inputs: ["Uploaded Photograph", "Image Category", "CV Quality Measures"],
+      coreEngine: "OpenCV Analysis + Random Forest MOS Estimate -> Category-Aware Mamdani Fuzzy Inference",
+      outputs: ["Quality Score (0–100)", "KEEP / RECOVER / RETAKE", "Defect Diagnostics"],
+      components: ["frontend/ — React + Vite analysis and simulation UI", "backend/app.py — FastAPI entry point", "backend/image_processing/ — OpenCV feature extraction", "backend/ml/ — training, evaluation, and prediction", "backend/fuzzy/ — Mamdani decision engines", "backend/services/analysis_service.py — analysis integration"]
+    },
+    codeSnippet: {
+      language: "python",
+      title: "Conceptual Analysis Flow · Python",
+      code: `# Conceptual outline of the repository's analysis flow\ncv_evidence = opencv_analysis(image, category)\nmos_estimate = random_forest_mos(image)\nrecommendation = mamdani_hybrid_decision(\n    mos=mos_estimate,\n    blur=cv_evidence.blur,\n    noise=cv_evidence.noise,\n    composition=cv_evidence.composition,\n    category=category,\n)\nreturn quality_score, recommendation, cv_evidence`
+    },
+    highlights: [
+      "Combines learned perceptual scoring with interpretable image-quality signals",
+      "Uses explicit blur and noise evidence to avoid hiding severe defects in an average score",
+      "Applies face evidence only to portrait and group-photo categories"
+    ]
+  },
+  {
+    id: "coffeeestate-ai",
+    name: "CoffeeEstate-AI",
+    tagline: "YOLOv8 coffee cherry ripeness analysis and harvest guidance · In progress",
+    category: "AI_CV",
+    categoryName: "AI & Agriculture",
+    problem: "Coffee growers need a faster way to assess cherry maturity from plantation images and plan selective harvesting from consistent, explainable counts.",
+    solution: "A computer-vision workflow detects coffee cherries in branch photographs, classifies maturity across five biological/visibility classes, summarizes evaluable ripeness, and gives harvesting and processing guidance. The project is in progress.",
+    builtDetails: [
+      "YOLOv8 detection pipeline for coffee branch photographs, with five biological/visibility classes",
+      "Ripeness summaries use evaluable cherries and exclude low-visibility detections from the denominator",
+      "Harvest guidance covers selective/fly picking, processing route, and pulping timelines",
+      "Analysis history, model metadata, and live CPU/GPU runtime diagnostics",
+      "Project is in progress"
+    ],
+    techStack: ["Python", "YOLOv8", "FastAPI", "React", "TypeScript", "Vite", "Tailwind CSS", "SQLite", "SQLAlchemy", "OpenCV", "PyTorch"],
+    githubUrl: "https://github.com/adithhn12/CoffeeEstate-AI",
+    featured: true,
+    status: "In Progress",
+    repositoryVisibility: "private",
+    metrics: [
+      { label: "Status", value: "In Progress" },
+      { label: "Vision Model", value: "Fine-tuned YOLOv8" },
+      { label: "Detection Classes", value: "5 cherry maturity/visibility classes" },
+      { label: "Backend / Data", value: "FastAPI · SQLite" }
+    ],
+    architecture: {
+      inputs: ["Coffee Branch Photograph", "YOLOv8 Weights", "Estate Analysis History"],
+      coreEngine: "React/Vite Client -> FastAPI -> YOLOv8 Vision Service -> Ripeness Interpreter -> SQLite History",
+      outputs: ["Cherry Counts & Ripeness Share", "Harvest / Processing Guidance", "Model & Runtime Diagnostics"],
+      components: ["frontend/src/ — React + Vite interface", "backend/app/routes/analysis.py — analysis and history API", "backend/app/services/vision_service.py — YOLOv8 inference and maturity interpretation", "backend/app/routes/health.py — API and runtime health", "backend/app/database.py — SQLite persistence", "ml/ — training and evaluation scripts"]
+    },
+    codeSnippet: {
+      language: "yaml",
+      title: "coffee_cherry.yaml · model classes",
+      code: `# YOLOv8 coffee cherry dataset classes\nnc: 5\nnames:\n  0: Dark Brown Cherry\n  1: Green Cherry\n  2: Low Visibility / Unsure\n  3: Red Cherry\n  4: Yellow Cherry`
+    },
+    highlights: [
+      "Detects dark brown, green, low-visibility/unsure, red, and yellow cherries",
+      "Excludes low-visibility fruit from the evaluable ripeness denominator",
+      "Summarizes counts, ripeness, confidence, and maturity stage for harvest decisions",
+      "Includes analysis history and live CPU/GPU model diagnostics",
+      "In progress; the GitHub repository is private"
     ]
   }
 ];

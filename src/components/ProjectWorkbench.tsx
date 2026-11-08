@@ -21,6 +21,8 @@ import { OrderFlowSimulator } from './simulators/OrderFlowSimulator';
 import { TalesOfEverwoodSimulator } from './simulators/TalesOfEverwoodSimulator';
 import { SkyRunnerSimulator } from './simulators/SkyRunnerSimulator';
 import { RetroSneaksSimulator } from './simulators/RetroSneaksSimulator';
+import { SmartSnapHybridSimulator } from './simulators/SmartSnapHybridSimulator';
+import { CoffeeEstateAISimulator } from './simulators/CoffeeEstateAISimulator';
 
 interface ProjectWorkbenchProps {
   externalProjectId?: string;
@@ -65,8 +67,12 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
         return <SkyRunnerSimulator />;
       case 'retrosneaks':
         return <RetroSneaksSimulator />;
+      case 'smartsnap-hybrid':
+        return <SmartSnapHybridSimulator />;
+      case 'coffeeestate-ai':
+        return <CoffeeEstateAISimulator />;
       default:
-        return <TalesOfEverwoodSimulator />;
+        return <div className="rounded-xl border border-slate-800 bg-slate-950 p-6 text-sm text-slate-400">An interactive preview for this project is not available yet. See the project overview and source repository for details.</div>;
     }
   };
 
@@ -115,7 +121,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
         <div className="flex flex-wrap items-center gap-2">
           {[
             { id: 'ALL', label: `All Projects (${PROJECTS_DATA.length})` },
-            { id: 'AI_CV', label: `AI & Remote Sensing (${PROJECTS_DATA.filter((p) => p.category === 'AI_CV').length})` },
+            { id: 'AI_CV', label: `AI & Computer Vision (${PROJECTS_DATA.filter((p) => p.category === 'AI_CV').length})` },
             { id: 'SMART_SYSTEMS', label: `Smart Infrastructure (${PROJECTS_DATA.filter((p) => p.category === 'SMART_SYSTEMS').length})` },
             { id: 'GAMES_WEB', label: `Games & Web (${PROJECTS_DATA.filter((p) => p.category === 'GAMES_WEB').length})` }
           ].map((cat) => (
@@ -160,6 +166,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
                         }`}>
                           {p.name}
                         </span>
+                        {p.status && <span className="shrink-0 text-[10px] font-mono text-amber-300 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-800/40">{p.status}</span>}
                         {p.liveUrl && (
                           <span className="shrink-0 text-[10px] font-mono font-medium text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800/40">
                             {p.id === 'tales-of-everwood' ? 'itch.io' : 'Demo'}
@@ -204,6 +211,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
                     <h3 className="text-2xl font-bold font-heading text-slate-100">
                       {activeProject.name}
                     </h3>
+                    {activeProject.status && <span className="inline-block text-[10px] font-mono text-amber-300 bg-amber-950/40 px-2.5 py-1 rounded-full border border-amber-800/40">{activeProject.status}</span>}
                     <p className="text-xs sm:text-sm text-slate-300 font-sans">
                       {activeProject.tagline}
                     </p>
@@ -259,6 +267,10 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
                         ? 'Play Everwood (itch.io)'
                         : activeProject.id === 'skyrunner'
                         ? 'Play SkyRunner (WebGL)'
+                        : activeProject.id === 'smartsnap-hybrid'
+                        ? 'Explore Quality Preview'
+                        : activeProject.id === 'coffeeestate-ai'
+                        ? 'Explore Field Preview'
                         : 'Interactive Demo'
                     }
                   </button>
@@ -423,6 +435,29 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
                         </a>
                       </div>
                     )}
+
+                    <div className="space-y-3 rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+                      <div>
+                        <span className="block text-xs font-semibold uppercase tracking-wide text-cyan-300">Codebase Map</span>
+                        <p className="mt-1 text-[11px] text-slate-500">Repository modules and their roles</p>
+                      </div>
+                      {activeProject.architecture.components?.length ? (
+                        <ul className="space-y-2">
+                          {activeProject.architecture.components.map((component) => (
+                            <li key={component} className="flex items-start gap-2 text-xs leading-relaxed text-slate-300">
+                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />{component}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-xs text-slate-400">The repository structure is available from the source link above.</p>
+                      )}
+                      <div className="grid grid-cols-1 gap-2 border-t border-slate-800 pt-3 sm:grid-cols-3 text-[11px]">
+                        <div><span className="mb-1 block font-mono uppercase text-slate-500">Inputs</span><span className="text-slate-300">{activeProject.architecture.inputs.join(' · ')}</span></div>
+                        <div><span className="mb-1 block font-mono uppercase text-[#f3e600]">Core engine</span><span className="text-slate-300">{activeProject.architecture.coreEngine}</span></div>
+                        <div><span className="mb-1 block font-mono uppercase text-cyan-400">Outputs</span><span className="text-slate-300">{activeProject.architecture.outputs.join(' · ')}</span></div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -456,6 +491,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({ externalProj
                   <h3 className="font-heading font-bold text-lg text-slate-100 group-hover:text-[#f3e600] transition-colors">
                     {p.name}
                   </h3>
+                  {p.status && <span className="inline-block text-[10px] font-mono text-amber-300 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-800/40">{p.status}</span>}
                   <p className="text-xs text-slate-300 leading-relaxed font-sans line-clamp-3">
                     {p.problem}
                   </p>

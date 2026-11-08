@@ -15,6 +15,8 @@ export interface Project {
   downloadUrl?: string;
   imageUrl?: string;
   featured: boolean;
+  status?: string;
+  repositoryVisibility?: 'public' | 'private';
   metrics: {
     label: string;
     value: string;
@@ -23,6 +25,7 @@ export interface Project {
     inputs: string[];
     coreEngine: string;
     outputs: string[];
+    components?: string[];
   };
   highlights: string[];
   codeSnippet?: {
